@@ -1,0 +1,49 @@
+﻿name,size,available,waiting,price,on_sale,discounted_price
+Pyramids - White - 26,M,False,0,325.0,False,
+Pyramids - White - 26,L,False,0,325.0,False,
+Pyramids - White - 26,XL,False,0,325.0,False,
+Pyramids - White - 26,XXL,False,0,325.0,False,
+Roma - White - 26,M,False,2,325.0,False,
+Roma - White - 26,L,False,1,325.0,False,
+Roma - White - 26,XL,False,2,325.0,False,
+Roma - White - 26,XXL,False,0,325.0,False,
+Chelsea - Black - 26,M,False,0,325.0,False,
+Chelsea - Black - 26,L,False,1,325.0,False,
+Chelsea - Black - 26,XL,False,2,325.0,False,
+Chelsea - Black - 26,XXL,False,2,325.0,False,
+Argentina T-shirt (Batistuta) - 1998,M,False,1,499.0,False,
+Argentina T-shirt (Batistuta) - 1998,L,False,0,499.0,False,
+Argentina T-shirt (Batistuta) - 1998,XL,False,6,499.0,False,
+Argentina T-shirt (Batistuta) - 1998,XXL,False,11,499.0,False,
+ England Home Shirt - 1998,M,True,0,499.0,False,
+ England Home Shirt - 1998,L,True,0,499.0,False,
+ England Home Shirt - 1998,XL,True,0,499.0,False,
+ England Home Shirt - 1998,XXL,True,0,499.0,False,
+AC Milan away T-shirt - 2001-2002,M,True,0,500.0,True,399.0
+AC Milan away T-shirt - 2001-2002,L,True,0,500.0,True,399.0
+AC Milan away T-shirt - 2001-2002,XL,True,0,500.0,True,399.0
+AC Milan away T-shirt - 2001-2002,XXL,True,0,500.0,True,399.0
+Real Madrid T-shirt - Black,M,False,4,500.0,True,399.0
+Real Madrid T-shirt - Black,L,False,2,500.0,True,375.0
+Real Madrid T-shirt - Black,XL,False,3,500.0,True,375.0
+Real Madrid T-shirt - Black,XX,False,1,500.0,True,375.0
+Black Liverpool T-shirt,M,False,0,499.0,False,
+Black Liverpool T-shirt,L,True,0,499.0,False,
+Black Liverpool T-shirt,XL,False,2,499.0,False,
+Black Liverpool T-shirt,XXL,False,1,499.0,False,
+German Cotton T-Shirt - Black,M,False,1,499.0,False,
+German Cotton T-Shirt - Black,L,False,2,499.0,False,
+German Cotton T-Shirt - Black,XL,False,4,499.0,False,
+German Cotton T-Shirt - Black,XXL,False,6,499.0,False,
+Real Madrid - Black - 2026,M,False,1,450.0,False,
+Real Madrid - Black - 2026,L,False,0,450.0,False,
+Real Madrid - Black - 2026,xL,False,0,450.0,False,
+Real Madrid - Black - 2026,XXL,False,0,450.0,False,
+Wadi Degla - Yellow - 26,M,True,0,325.0,False,
+Wadi Degla - Yellow - 26,L,False,0,325.0,False,
+Wadi Degla - Yellow - 26,XL,False,2,325.0,False,
+Wadi Degla - Yellow - 26,XXL,False,0,325.0,False,
+Roma - Home - 2026,M,True,0,325.0,False,
+Roma - Home - 2026,L,True,0,325.0,False,
+Roma - Home - 2026,XL,False,0,325.0,False,
+Roma - Home - 2026,XXL,False,2,325.0,False,
