@@ -17,3 +17,18 @@ state.set("numbers", [4, 2])
 print(state.get("numbers"))
 
 """Override handlers for individual operations"""
+
+def concatenate_strings(current, new):
+    return f"{current}--{new}" if current else new
+
+schema = {"user_name": {"type": str}}
+state = State(schema=schema)
+
+state.set("user_name", "Alice")
+print(state.get("user_name"))
+state.set("user_name", "Bob")
+print(state.get("user_name"))
+state.set("user_name", "Charlie", handler_override=concatenate_strings)
+print(state.get("user_name"))
+state.set("user_name", "David")
+print(state.get("user_name"))
