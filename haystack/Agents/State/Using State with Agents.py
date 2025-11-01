@@ -1,7 +1,8 @@
 from haystack.components.agents.agent import Agent
-from haystack.components.generators.chat import HuggingFaceAPIChatGenerator
 from haystack.dataclasses import ChatMessage
 from haystack.tools import Tool
+from haystack.components.generators.chat import HuggingFaceAPIChatGenerator
+from haystack.utils.hf import HFGenerationAPIType
 
 # Define a simple calculation tool
 def calculate(expression: str) -> dict:
@@ -23,7 +24,9 @@ calculate_tool = Tool(
 )
 
 agent = Agent(
-    chat_generator=HuggingFaceAPIChatGenerator("mistralai/Mistral-7B-Instruct-v0.2"),
+    chat_generator=HuggingFaceAPIChatGenerator(api_type=HFGenerationAPIType.SERVERLESS_INFERENCE_API,
+                                  api_params={"model": "Qwen/Qwen2.5-7B-Instruct",
+                                             "provider": "together"}),
     tools=[calculate_tool],
     state_schema={"calc_result": {"type": int}}
 )
