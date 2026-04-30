@@ -139,12 +139,14 @@ def email_notifier():
     app_password = os.environ.get("EMAIL_APP_PASSWORD")
     sender_email = "tamanabdullah9@gmail.com"
     receiver_email = "ramyalimahmoud@gmail.com"
+    sheet_link = "https://docs.google.com/spreadsheets/d/1HQmnYbSvO7xytQxs9sY72Ij5spt6g-s4V4rm1h7-5tI/edit?usp=sharing"
     today_str = dt.datetime.now().strftime("%Y-%m-%d (%A)")
     message = f"""سلام عليكم ورحمة الله وبركاته
 صباحو يابو الريم
 هذا ايميل تلقائي
 تم إضافة بيانات اليوم لموقع كورفا
 اليوم: {today_str}
+رابط الملف: {sheet_link}
 """
     yag = yagmail.SMTP(sender_email, app_password)
     yag.send(
