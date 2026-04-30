@@ -28,9 +28,9 @@ jobs:
         EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
         GOOGLE_KEY_JSON: ${{ secrets.GOOGLE_KEY_JSON }}
       run: |
-        echo "=== Starting Arenakit Pipeline ==="
+        echo "=== Starting Africa Store Pipeline ==="
         python "football tshirts scrapping/africa.py"
-        echo "=== Arenakit Pipeline Finished ==="
+        echo "=== Africa Store Pipeline Finished ==="
 
     - name: Run Curva Pipeline
       env:
