@@ -116,11 +116,6 @@ def writer(df):
     creds = Credentials.from_service_account_file("key.json", scopes=scopes)
     client = gspread.authorize(creds)
 
-    today_ss = client.open("Curva Today Market State")
-    today_sheet = today_ss.get_worksheet(0)
-    today_sheet.clear()
-    set_with_dataframe(today_sheet, df)
-
     archive_ss = client.open("Curva Market Day-to-Day State")
     today_str = dt.datetime.now().strftime("%Y-%m-%d")
     try:
