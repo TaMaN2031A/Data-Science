@@ -23,14 +23,14 @@ jobs:
         pip install --upgrade pip
         pip install gspread google-auth gspread-dataframe yagmail pandas selenium beautifulsoup4 webdriver-manager
 
-    - name: Run Arenakit Pipeline
-      env:
-        EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
-        GOOGLE_KEY_JSON: ${{ secrets.GOOGLE_KEY_JSON }}
-      run: |
-        echo "=== Starting Arenakit Pipeline ==="
-        python "football tshirts scrapping/arena.py"
-        echo "=== Arenakit Pipeline Finished ==="
+ #   - name: Run Arenakit Pipeline
+#      env:
+ #       EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+  #      GOOGLE_KEY_JSON: ${{ secrets.GOOGLE_KEY_JSON }}
+#      run: |
+ #       echo "=== Starting Arenakit Pipeline ==="
+  #      python "football tshirts scrapping/arena.py"
+   #     echo "=== Arenakit Pipeline Finished ==="
 
     - name: Run Curva Pipeline
       env:
