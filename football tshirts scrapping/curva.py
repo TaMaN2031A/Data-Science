@@ -13,42 +13,96 @@ import os
 import time
 
 # -------------------- SCRAPER --------------------
+import time
+import pandas as pd
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
 def scrapper():
+    global name
     URL = "https://curvaegypt.com/about/top-products"
     chrome_options = Options()
     chrome_options.add_argument("--headless")
+
     driver = webdriver.Chrome(options=chrome_options)
     all_products_data = []
-    MAX_PAGES_TO_SCRAPE = 3
+    MAX_PAGES_TO_SCRAPE = 10
 
     driver.get(URL)
 
     for page_num in range(1, MAX_PAGES_TO_SCRAPE + 1):
-        WebDriverWait(driver, 10).until(
-            lambda d: d.execute_script("return Object.values(window.__NUXT__.data).length") > 0
+        driver.refresh()
+        time.sleep(3)
+        # الانتظار حتى تظهر المنتجات في الـ DOM
+        WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "grid"))
         )
-        products_list = driver.execute_script("return Object.values(window.__NUXT__.data)[0].data.data;")
-        if products_list:
-            for product in products_list:
-                is_available = product.get("availability") == "available"
-                has_discount = product.get("offer_ratio") is not None
-                all_products_data.append({
-                    "name": product.get("name"),
-                    "original price": product.get("init_price"),
-                    "discount": has_discount,
-                    "discounted price": product.get("offer_price"),
-                    "available": is_available
-                })
+
+        # تمرير بسيط للتأكد من تحميل الصور (Lazy loading) إذا لزم الأمر
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight/4);")
+        time.sleep(1)
+
+        # تحويل محتوى الصفحة الحالي إلى BeautifulSoup
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+
+        # البحث عن حاوية المنتجات
+        products_containers = soup.find_all('div', class_='relative bg-gray-light rounded-lg overflow-hidden')
+
+        print(f"Scraping page {page_num} | products found: {len(products_containers)}")
+
+        for item in products_containers:
+            # استخراج الاسم
+            name_tag = item.find('p', class_='line-clamp-2')
+            name = name_tag.get_text(strip=True) if name_tag else "N/A"
+
+            # استخراج الأسعار
+            price_container = item.find('div', class_='flex gap-4')
+
+            # السعر الحالي (المخصم أو الأساسي)
+            current_price_tag = price_container.find('span',
+                                                     class_='text-[--primary-color]') if price_container else None
+            current_price = current_price_tag.get_text(strip=True).replace('EGP', '') if current_price_tag else "0"
+
+            # السعر الأصلي (قبل الخصم) إن وجد
+            old_price_tag = item.find('div', class_='relative text-xl font-bold')
+            old_price = old_price_tag.find('span').get_text(strip=True) if old_price_tag else None
+
+            all_products_data.append({
+                "name": name,
+                "current_price": current_price,
+                "original_price": old_price if old_price else current_price,
+                "has_discount": old_price is not None,
+                "page": page_num
+            })
+
         if page_num < MAX_PAGES_TO_SCRAPE:
-            next_button = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//button[@aria-label='Go to next page']"))
-            )
-            driver.execute_script("arguments[0].click();", next_button)
-            time.sleep(3)
+            try:
+                # البحث عن زر الصفحة التالية والضغط عليه
+                next_btn = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Go to next page']"))
+                )
+
+                # حفظ اسم أول منتج للتأكد من تغير الصفحة
+                first_product_name = name
+
+                driver.execute_script("arguments[0].click();", next_btn)
+
+                # الانتظار حتى يتغير محتوى الصفحة (تغير اسم أول منتج)
+                WebDriverWait(driver, 10).until(
+                    lambda d: d.find_element(By.CLASS_NAME, "line-clamp-2").text != first_product_name
+                )
+                time.sleep(1)
+            except Exception as e:
+                print(f"No more pages or error: {e}")
+                break
 
     driver.quit()
-    df = pd.DataFrame(all_products_data)
-    return df
+    return pd.DataFrame(all_products_data)
 
 # -------------------- WRITER --------------------
 def writer(df):
