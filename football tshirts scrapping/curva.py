@@ -77,7 +77,6 @@ def scrapper():
                 "current_price": current_price,
                 "original_price": old_price if old_price else current_price,
                 "has_discount": old_price is not None,
-                "page": page_num
             })
 
         if page_num < MAX_PAGES_TO_SCRAPE:
