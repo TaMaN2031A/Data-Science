@@ -40,3 +40,12 @@ jobs:
         echo "=== Starting Curva Pipeline ==="
         python "football tshirts scrapping/curva.py"
         echo "=== Curva Pipeline Finished ==="
+
+    - name: Run iii-amigos Pipeline
+      env:
+        EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+        GOOGLE_KEY_JSON: ${{ secrets.GOOGLE_KEY_JSON }}
+      run: |
+        echo "=== Starting iii-amigos Pipeline ==="
+        python "football tshirts scrapping/iiiamigos.py"
+        echo "=== iii-amigos Pipeline Finished ==="
